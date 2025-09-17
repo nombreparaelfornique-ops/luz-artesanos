@@ -64,16 +64,16 @@ https://Luz Artesanos/tm-559-zay-shop
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Inicio</a>
+                            <a class="nav-link menu-hover" href="index.html">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Sobre Nosotros</a>
+                            <a class="nav-link menu-hover" href="about.html">Sobre Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Tienda</a>
+                            <a class="nav-link menu-hover" href="shop.html">Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contacto</a>
+                            <a class="nav-link menu-hover" href="contact.html">Contacto</a>
                         </li>
                     </ul>
                 </div>
@@ -648,5 +648,39 @@ section.container.py-5 > .row > div {
 #Luz_Artesanos i {
     color: #fff !important;
     font-size: 1rem !important;
+}
+
+/* Efecto hover tipo "services-icon-wap" para menú principal */
+.menu-hover {
+    transition: all 0.3s;
+    border-radius: 12px;
+    font-weight: bold; /* Siempre en negrilla */
+    padding: 8px 18px !important;
+    margin: 0 4px;
+    color: #6F4E37 !important;
+    background: transparent;
+    box-shadow: none;
+    display: inline-block;
+}
+.menu-hover:hover, .menu-hover:focus {
+    background: #6F4E37 !important; /* Café de la página */
+    color: #fff !important;         /* Letras blancas */
+    font-weight: bold !important;   /* Negrilla también en hover */
+    box-shadow: 0 4px 16px 0 rgba(111, 78, 55, 0.15), 0 1.5px 4px 0 rgba(111, 78, 55, 0.10);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+#loginModal .modal-content {
+    background: #fff !important;
+    color: #111 !important;
+    border-radius: 12px;
+}
+#loginModal label,
+#loginModal input,
+#loginModal button,
+#loginModal .modal-title {
+    color: #111 !important;
+    font-weight: bold !important;
 }
 </style>

@@ -65,16 +65,16 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Inicio</a>
+                            <a class="nav-link menu-hover" href="index.html">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Sobre Nosotros</a>
+                            <a class="nav-link menu-hover" href="about.html">Sobre Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Tienda</a>
+                            <a class="nav-link menu-hover" href="shop.html">Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contacto</a>
+                            <a class="nav-link menu-hover" href="contact.html">Contacto</a>
                         </li>
                     </ul>
                 </div>
@@ -94,9 +94,10 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <!-- Ícono de usuario funcional -->
+                    <a class="nav-icon position-relative text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                        <span id="userName" style="font-weight:bold; margin-left:6px;"></span>
                     </a>
                 </div>
             </div>
@@ -122,7 +123,171 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </div>
 
+    <!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #fff; border-radius: 12px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel" style="font-weight:bold; color:#111;">Iniciar Sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="loginUser" class="form-label" style="font-weight:bold; color:#111;">Usuario</label>
+            <input type="text" class="form-control" id="loginUser" required style="font-weight:bold; color:#111;">
+          </div>
+          <div class="mb-3">
+            <label for="loginPass" class="form-label" style="font-weight:bold; color:#111;">Contraseña</label>
+            <input type="password" class="form-control" id="loginPass" required style="font-weight:bold; color:#111;">
+          </div>
+          <div id="loginError" class="text-danger mb-2" style="display:none; font-weight:bold;">Usuario o contraseña incorrectos</div>
+          <button type="submit" class="btn btn-success w-100" style="font-weight:bold;">Ingresar</button>
+        </form>
+        <div class="text-center mt-3">
+          <a href="#" id="showRegister" style="font-weight:bold; color:#6F4E37;">¿No tienes cuenta? Regístrate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal Registro -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #fff; border-radius: 12px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel" style="font-weight:bold; color:#111;">Registrarse</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registerForm">
+          <div class="mb-3">
+            <label for="registerUser" class="form-label" style="font-weight:bold; color:#111;">Usuario</label>
+            <input type="text" class="form-control" id="registerUser" required style="font-weight:bold; color:#111;">
+          </div>
+          <div class="mb-3">
+            <label for="registerPass" class="form-label" style="font-weight:bold; color:#111;">Contraseña</label>
+            <input type="password" class="form-control" id="registerPass" required style="font-weight:bold; color:#111;">
+          </div>
+          <div id="registerError" class="text-danger mb-2" style="display:none; font-weight:bold;">El usuario ya existe</div>
+          <button type="submit" class="btn btn-success w-100" style="font-weight:bold;">Registrarse</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Mostrar modal de registro
+document.addEventListener('DOMContentLoaded', function() {
+    var showRegister = document.getElementById('showRegister');
+    if(showRegister){
+        showRegister.onclick = function(e) {
+            e.preventDefault();
+            var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            if(loginModal) loginModal.hide();
+            var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+            registerModal.show();
+        };
+    }
+});
+
+// Guardar usuarios en localStorage
+function saveUser(user, pass) {
+    let users = JSON.parse(localStorage.getItem('users') || '{}');
+    if (users[user]) return false;
+    users[user] = pass;
+    localStorage.setItem('users', JSON.stringify(users));
+    return true;
+}
+
+// Validar usuario y contraseña
+function validateUser(user, pass) {
+    let users = JSON.parse(localStorage.getItem('users') || '{}');
+    return users[user] && users[user] === pass;
+}
+
+// Registro
+document.addEventListener('DOMContentLoaded', function() {
+    var registerForm = document.getElementById('registerForm');
+    if(registerForm){
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('registerUser').value;
+            const pass = document.getElementById('registerPass').value;
+            if (saveUser(user, pass)) {
+                document.getElementById('registerError').style.display = 'none';
+                alert('¡Usuario registrado! Ahora puedes iniciar sesión.');
+                var registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                if(registerModal) registerModal.hide();
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            } else {
+                document.getElementById('registerError').style.display = 'block';
+            }
+        });
+    }
+});
+
+// Login
+document.addEventListener('DOMContentLoaded', function() {
+    var loginForm = document.getElementById('loginForm');
+    if(loginForm){
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            if(validateUser(user, pass)) {
+                document.getElementById('loginError').style.display = 'none';
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('loginUser', user);
+                alert('¡Bienvenido, ' + user + '!');
+                var modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                if(modal) modal.hide();
+                checkLogin();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+    }
+});
+
+// Mantener sesión y logout
+function checkLogin() {
+    const loggedIn = localStorage.getItem('loggedIn');
+    const user = localStorage.getItem('loginUser');
+    const userIcon = document.querySelector('.fa-user');
+    const userNameSpan = document.getElementById('userName');
+    if (loggedIn === 'true' && user) {
+        if(userIcon){
+            userIcon.classList.remove('text-dark');
+            userIcon.classList.add('text-success');
+            userIcon.title = 'Sesión iniciada como ' + user;
+        }
+        if(userNameSpan) userNameSpan.textContent = user;
+    } else {
+        if(userIcon){
+            userIcon.classList.remove('text-success');
+            userIcon.classList.add('text-dark');
+            userIcon.title = '';
+        }
+        if(userNameSpan) userNameSpan.textContent = '';
+    }
+}
+window.addEventListener('DOMContentLoaded', checkLogin);
+document.addEventListener('DOMContentLoaded', function() {
+    var userIcon = document.querySelector('.fa-user');
+    if(userIcon){
+        userIcon.addEventListener('dblclick', function() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('loginUser');
+            alert('Sesión cerrada');
+            checkLogin();
+        });
+    }
+});
+</script>
 
     <section class="py-5">
         <div class="container">
@@ -382,6 +547,20 @@ https://templatemo.com/tm-559-zay-shop
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
     <!-- End Script -->
+
+    <!-- Agrega este script para abrir el modal desde algún botón o ícono -->
+<script>
+  // Ejemplo: abrir modal con un botón con id="openLogin"
+  document.addEventListener('DOMContentLoaded', function() {
+    var openBtn = document.getElementById('openLogin');
+    if(openBtn){
+      openBtn.addEventListener('click', function(){
+        var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+      });
+    }
+  });
+</script>
 </body>
 
 </html>
@@ -465,4 +644,24 @@ a.navbar-sm-brand.text-light.text-decoration-none {
 .carousel-control-prev i,
 .carousel-control-next i {
     color: #000000 !important;
+}
+
+.menu-hover {
+    transition: all 0.3s;
+    border-radius: 12px;
+    font-weight: bold;
+    padding: 8px 18px !important;
+    margin: 0 4px;
+    color: #6F4E37 !important;
+    background: transparent;
+    box-shadow: none;
+    display: inline-block;
+}
+.menu-hover:hover, .menu-hover:focus {
+    background: #6F4E37 !important; /* Café */
+    color: #fff !important;         /* Letras blancas */
+    font-weight: bold !important;
+    box-shadow: 0 4px 16px 0 rgba(111, 78, 55, 0.15), 0 1.5px 4px 0 rgba(111, 78, 55, 0.10);
+    text-decoration: none;
+    transform: translateY(-2px);
 }

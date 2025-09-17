@@ -56,6 +56,51 @@ https://templatemo.com/tm-559-zay-shop
             color: #fff !important;
             font-weight: bold
         }
+        .menu-hover {
+            transition: all 0.3s;
+            border-radius: 12px;
+            font-weight: bold;
+            padding: 8px 18px !important;
+            margin: 0 4px;
+            color: #6F4E37 !important;
+            background: transparent;
+            box-shadow: none;
+            display: inline-block;
+        }
+        .menu-hover:hover, .menu-hover:focus {
+            background: #6F4E37 !important; /* Café */
+            color: #fff !important;         /* Letras blancas */
+            font-weight: bold !important;
+            box-shadow: 0 4px 16px 0 rgba(111, 78, 55, 0.15), 0 1.5px 4px 0 rgba(111, 78, 55, 0.10);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+        .shop-top-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.shop-top-menu .list-inline-item {
+    margin-right: 30px !important;
+}
+.shop-top-menu .list-inline-item:last-child {
+    margin-right: 0 !important;
+}
+#loginModal .modal-content {
+    background: #fff !important;
+    color: #111 !important;
+    border-radius: 12px;
+}
+#loginModal label,
+#loginModal input,
+#loginModal button,
+#loginModal .modal-title {
+    color: #111 !important;
+    font-weight: bold !important;
+}
     </style>
 </head>
 
@@ -98,17 +143,17 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">Sobre nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Tienda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contacto</a>
-                        </li>
+        <a class="nav-link menu-hover" href="index.html">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menu-hover" href="about.html">Sobre nosotros</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menu-hover" href="shop.html">Tienda</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menu-hover" href="contact.html">Contacto</a>
+    </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
@@ -258,27 +303,18 @@ https://templatemo.com/tm-559-zay-shop
             <!-- Productos en el centro -->
             <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <ul class="list-inline shop-top-menu pb-3 pt-1">
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3 fw-bold" href="lo mas nuevo.html"><b>Lo mas nuevo</b></a>
+                                <a class="h3 text-dark text-decoration-none fw-bold" href="lo mas nuevo.html"><b>Lo mas nuevo</b></a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3 fw-bold" href="promociones web.html"><b>promociones</b></a>
+                                <a class="h3 text-dark text-decoration-none fw-bold" href="promociones web.html"><b>promociones</b></a>
                             </li>
                             <li class="list-inline-item">
                                 <a class="h3 text-dark text-decoration-none fw-bold" href="lo mas vendido.html"><b>Lo mas vendido</b></a>
                             </li>
                         </ul>
-                    </div>
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option></option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
